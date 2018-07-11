@@ -38,7 +38,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/button_view_books"
+        android:id="@+id/new_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_book"

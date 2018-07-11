@@ -34,7 +34,7 @@ import com.example.andra.inventory.data.BooksDbHelper;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inv_management);
 
-        Button button = (Button) findViewById(R.id.button_view_books);
+        Button button = (Button) findViewById(R.id.new_book);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +54,6 @@ import com.example.andra.inventory.data.BooksDbHelper;
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(InvManagementActivity.this, EditorActivity.class);
                 Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
                 intent.setData(currentBookUri);
@@ -104,7 +103,10 @@ import com.example.andra.inventory.data.BooksDbHelper;
                 String[] projection = {
                         BookEntry._ID,
                         BookEntry.COLUMN_PRODUCT_NAME,
-                        BookEntry.COLUMN_PRICE };
+                        BookEntry.COLUMN_PRICE,
+                        BookEntry.COLUMN_QUANTITY,
+                        BookEntry.COLUMN_SUPPLIER_NAME,
+                        BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER};
 
                 return new CursorLoader(this,
                         BookEntry.CONTENT_URI,
@@ -121,6 +123,6 @@ import com.example.andra.inventory.data.BooksDbHelper;
 
             @Override
             public void onLoaderReset(Loader<Cursor> loader) {
-                mCursorAdapter.swapCursor(null);
+                 mCursorAdapter.swapCursor(null);
             }
         }

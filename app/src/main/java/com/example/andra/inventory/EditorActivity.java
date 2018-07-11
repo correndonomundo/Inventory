@@ -72,7 +72,14 @@ import com.example.andra.inventory.data.BooksDbHelper;
         mSupplierNameEditText = (EditText) findViewById(R.id.supplier_name);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.supplier_phone);
 
-           }
+            mProductNameEditText.setOnTouchListener(mTouchListener);
+            mPriceEditText.setOnTouchListener(mTouchListener);
+            mQuantityEditText.setOnTouchListener(mTouchListener);
+            mSupplierNameEditText.setOnTouchListener(mTouchListener);
+            mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
+
+
+        }
             private void saveBook() {
 
                 String bookName = mProductNameEditText.getText().toString().trim();

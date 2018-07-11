@@ -27,7 +27,7 @@
         </activity>
 
     <provider
-    android:name="data.BookProvider"
+    android:name=".data.BookProvider"
     android:authorities="com.example.andra.inventory"
     android:exported="false"/>
 
