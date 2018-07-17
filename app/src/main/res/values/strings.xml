@@ -47,4 +47,8 @@
     <string name="buy">Buy</string>
     <string name="insert_quantity">Insert quantity</string>
 
+    <string name="pick_quantity">Pick Quantity</string>
+    <string name="add_quantity">+</string>
+    <string name="decrease_quantity">-</string>
+
 </resources>

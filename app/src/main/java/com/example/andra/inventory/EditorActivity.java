@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
 
 import com.example.andra.inventory.data.BooksContract.BookEntry;
 import com.example.andra.inventory.data.BooksDbHelper;
@@ -38,6 +39,7 @@ import com.example.andra.inventory.data.BooksDbHelper;
         private EditText mQuantityEditText;
         private EditText mSupplierNameEditText;
         private EditText mSupplierPhoneEditText;
+        private Button mBuyButton;
 
         private boolean mBookHasChanged = false;
 
@@ -48,6 +50,20 @@ import com.example.andra.inventory.data.BooksDbHelper;
                 return false;
             }
         };
+
+            private View.OnClickListener mClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ContentValues values = new ContentValues();
+                    String bookQuantity = mQuantityEditText.getText().toString().trim();
+                    if (Integer.valueOf(bookQuantity) == 0) {
+                        throw new IllegalArgumentException("No quantity available");
+                    } else {
+                        values.put(BookEntry.COLUMN_QUANTITY, String.valueOf(Integer.valueOf(bookQuantity) - 1));
+                        int rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+                    }
+                }
+            };
 
 
         @Override
@@ -71,12 +87,14 @@ import com.example.andra.inventory.data.BooksDbHelper;
         mQuantityEditText = (EditText) findViewById(R.id.quantity);
         mSupplierNameEditText = (EditText) findViewById(R.id.supplier_name);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.supplier_phone);
+        mBuyButton = (Button) findViewById(R.id.buy_book);
 
             mProductNameEditText.setOnTouchListener(mTouchListener);
             mPriceEditText.setOnTouchListener(mTouchListener);
             mQuantityEditText.setOnTouchListener(mTouchListener);
             mSupplierNameEditText.setOnTouchListener(mTouchListener);
             mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
+            mBuyButton.setOnClickListener(mClickListener);
 
 
         }
@@ -229,8 +247,8 @@ import com.example.andra.inventory.data.BooksDbHelper;
                     String supplierPhone = cursor.getString(phoneColumnIndex);
 
                     mProductNameEditText.setText(bookName);
-                    mPriceEditText.setText(bookPrice);
-                    mQuantityEditText.setText(bookQuantity);
+                    mPriceEditText.setText(String.valueOf(bookPrice));
+                    mQuantityEditText.setText(String.valueOf(bookQuantity));
                     mSupplierNameEditText.setText(bookSupplier);
                     mSupplierPhoneEditText.setText(supplierPhone);
                 }

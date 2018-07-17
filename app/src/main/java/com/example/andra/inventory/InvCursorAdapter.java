@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Button;
 
 import com.example.andra.inventory.data.BooksContract.BookEntry;
 
@@ -29,7 +30,7 @@ public class InvCursorAdapter extends CursorAdapter{
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
         TextView supplierTextView = (TextView) view.findViewById(R.id.supplier);
         TextView phoneTextView = (TextView) view.findViewById(R.id.phone);
-
+        
         int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
         int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
@@ -47,7 +48,6 @@ public class InvCursorAdapter extends CursorAdapter{
         quantityTextView.setText(bookQuantity);
         supplierTextView.setText(bookSupplier);
         phoneTextView.setText(supplierPhone);
-
     }
 
 }
