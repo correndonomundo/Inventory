@@ -1,12 +1,15 @@
 package com.example.andra.inventory;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -23,14 +26,15 @@ public class InvCursorAdapter extends CursorAdapter{
         return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
 
-    @Override
+
+     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.price);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
         TextView supplierTextView = (TextView) view.findViewById(R.id.supplier);
         TextView phoneTextView = (TextView) view.findViewById(R.id.phone);
-        
+
         int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
         int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
@@ -49,5 +53,4 @@ public class InvCursorAdapter extends CursorAdapter{
         supplierTextView.setText(bookSupplier);
         phoneTextView.setText(supplierPhone);
     }
-
 }
