@@ -1,12 +1,13 @@
 package com.example.andra.inventory.data;
 
-import android.provider.BaseColumns;
-import android.net.Uri;
 import android.content.ContentResolver;
+import android.net.Uri;
+import android.provider.BaseColumns;
 
 public final class BooksContract {
 
-    private BooksContract() {}
+    private BooksContract() {
+    }
 
     public static final String CONTENT_AUTHORITY = "com.example.andra.inventory";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -31,15 +32,17 @@ public final class BooksContract {
         public final static String COLUMN_SUPPLIER_PHONE_NUMBER = "supplierPhoneNumber";
 
 
-public static boolean isValidPrice (int price){
-    if(price > 0){
-        return true;}
-        return false;
-}
+        public static boolean isValidPrice(int price) {
+            if (price > 0) {
+                return true;
+            }
+            return false;
+        }
 
-        public static boolean isValidQuantity (int quantity){
-            if(quantity > 0){
-                return true;}
+        public static boolean isValidQuantity(int quantity) {
+            if (quantity > 0) {
+                return true;
+            }
             return false;
         }
     }
