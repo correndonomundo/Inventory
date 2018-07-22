@@ -37,12 +37,27 @@ public class InvCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
-        TextView nameTextView = (TextView) view.findViewById(R.id.name);
+        /*TextView idTextView = (TextView) view.findViewById(R.id.id);*/
+        final TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.price);
         final TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
         TextView supplierTextView = (TextView) view.findViewById(R.id.supplier);
         TextView phoneTextView = (TextView) view.findViewById(R.id.phone);
         Button mBuyButton = (Button) view.findViewById(R.id.buy_book);
+
+        int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
+        int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
+        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
+        int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
+        int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
+
+        final long id = cursor.getLong(idColumnIndex);
+        String bookName = cursor.getString(nameColumnIndex);
+        String bookPrice = cursor.getString(priceColumnIndex);
+        String bookQuantity = cursor.getString(quantityColumnIndex);
+        String bookSupplier = cursor.getString(supplierColumnIndex);
+        String supplierPhone = cursor.getString(phoneColumnIndex);
 
         mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +70,10 @@ public class InvCursorAdapter extends CursorAdapter {
                         throw new IllegalArgumentException("No quantity available");
                     }
 
-
-                    int position = cursor.getPosition();
-                    long id = getItemId(position);
                     mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
                     values.put(BookEntry.COLUMN_QUANTITY, String.valueOf(Integer.valueOf(bookQuantity) - 1));
                     int rowsAffected = mContext.getContentResolver().update(mCurrentBookUri, values, null, null);
+                    /*nameTextView.setText(nameTextView.getText()+"|"+String.valueOf(id));*/
                 } catch (Exception ex) {
                     StringWriter sw = new StringWriter();
                     PrintWriter pw = new PrintWriter(sw);
@@ -70,18 +83,9 @@ public class InvCursorAdapter extends CursorAdapter {
                 }
             }
         });
-        int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
-        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-        int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
-        int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
 
-        String bookName = cursor.getString(nameColumnIndex);
-        String bookPrice = cursor.getString(priceColumnIndex);
-        String bookQuantity = cursor.getString(quantityColumnIndex);
-        String bookSupplier = cursor.getString(supplierColumnIndex);
-        String supplierPhone = cursor.getString(phoneColumnIndex);
 
+        /*idTextView.setText(String.valueOf(id));*/
         nameTextView.setText(bookName);
         priceTextView.setText(bookPrice);
         quantityTextView.setText(bookQuantity);
