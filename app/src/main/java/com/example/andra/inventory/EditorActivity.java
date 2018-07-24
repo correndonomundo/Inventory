@@ -35,7 +35,6 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mQuantityEditText;
     private EditText mSupplierNameEditText;
     private EditText mSupplierPhoneEditText;
-    private Button mBuyButton;
 
     private boolean mBookHasChanged = false;
 
@@ -85,11 +84,14 @@ public class EditorActivity extends AppCompatActivity implements
         String supplierPhone = mSupplierPhoneEditText.getText().toString().trim();
 
 
-        if (mCurrentBookUri == null &&
-                TextUtils.isEmpty(bookName) && TextUtils.isEmpty(bookPrice) &&
-                TextUtils.isEmpty(bookQuantity) && TextUtils.isEmpty(bookSupplier) &&
+        if (mCurrentBookUri != null &&
+                TextUtils.isEmpty(bookName) || TextUtils.isEmpty(bookPrice) ||
+                TextUtils.isEmpty(bookQuantity) || TextUtils.isEmpty(bookSupplier) ||
                 TextUtils.isEmpty(supplierPhone)) {
             return;
+        }else{
+            Toast.makeText(this, getString(R.string.check_details),
+                    Toast.LENGTH_SHORT).show();
         }
 
         ContentValues values = new ContentValues();

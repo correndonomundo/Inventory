@@ -30,6 +30,7 @@
     <string name="editor_update_book_successful">Book updated</string>
     <string name="editor_update_book_failed">Error updating book</string>
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="check_details">Check input details?</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
     <string name="editor_delete_book_successful">Book deleted</string>
@@ -46,6 +47,9 @@
 
     <string name="buy">Buy</string>
     <string name="insert_quantity">Insert quantity</string>
+    <string name="increment_book">+</string>
+    <string name="decrement_book">-</string>
+
 
     <string name="pick_quantity">Pick Quantity</string>
     <string name="add_quantity">+</string>
