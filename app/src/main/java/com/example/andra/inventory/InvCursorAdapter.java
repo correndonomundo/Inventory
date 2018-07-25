@@ -3,6 +3,7 @@ package com.example.andra.inventory;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -10,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andra.inventory.data.BooksContract.BookEntry;
 
@@ -36,15 +35,13 @@ public class InvCursorAdapter extends CursorAdapter {
 
 
     @Override
-    public void bindView(View view, Context context, final Cursor cursor) {
+    public void bindView(final View view, final Context context, final Cursor cursor) {
         final TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.price);
         final TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
         TextView supplierTextView = (TextView) view.findViewById(R.id.supplier);
         TextView phoneTextView = (TextView) view.findViewById(R.id.phone);
         Button mBuyButton = (Button) view.findViewById(R.id.buy_book);
-        Button mIncrementButton = (Button) view.findViewById(R.id.increment_book);
-        Button mDecrementButton = (Button) view.findViewById(R.id.decrement_book);
 
         int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
@@ -60,10 +57,11 @@ public class InvCursorAdapter extends CursorAdapter {
         String bookSupplier = cursor.getString(supplierColumnIndex);
         String supplierPhone = cursor.getString(phoneColumnIndex);
 
-
         mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent openDetail = new Intent(context, DetailActivity.class);
+               view.getContext().startActivity(openDetail);
                 ContentValues values = new ContentValues();
                 try {
                     String bookQuantity = quantityTextView.getText().toString().trim();
@@ -85,53 +83,6 @@ public class InvCursorAdapter extends CursorAdapter {
             }
         });
 
-        mIncrementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentValues values = new ContentValues();
-                try {
-                    String bookQuantity = quantityTextView.getText().toString().trim();
-
-                    if (Integer.valueOf(bookQuantity) == 0) {
-                        throw new IllegalArgumentException("No quantity available");
-                    }
-
-                    mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
-                    values.put(BookEntry.COLUMN_QUANTITY, String.valueOf(Integer.valueOf(bookQuantity) - 1));
-                    int rowsAffected = mContext.getContentResolver().update(mCurrentBookUri, values, null, null);
-                } catch (Exception ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    ex.printStackTrace(pw);
-                    String sStackTrace = sw.toString();
-                    System.out.println(sStackTrace);
-                }
-            }
-        });
-
-        mDecrementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentValues values = new ContentValues();
-                try {
-                    String bookQuantity = quantityTextView.getText().toString().trim();
-
-                    if (Integer.valueOf(bookQuantity) == 0) {
-                        throw new IllegalArgumentException("No quantity available");
-                    }
-
-                    mCurrentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
-                    values.put(BookEntry.COLUMN_QUANTITY, String.valueOf(Integer.valueOf(bookQuantity) + 1));
-                    int rowsAffected = mContext.getContentResolver().update(mCurrentBookUri, values, null, null);
-                } catch (Exception ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    ex.printStackTrace(pw);
-                    String sStackTrace = sw.toString();
-                    System.out.println(sStackTrace);
-                }
-            }
-        });
 
         nameTextView.setText(bookName);
         priceTextView.setText(bookPrice);
