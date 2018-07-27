@@ -49,6 +49,7 @@
     <string name="insert_quantity">Insert quantity</string>
     <string name="increment_book">+</string>
     <string name="decrement_book">-</string>
+    <string name="call_supplier">Call Supplier</string>
 
 
     <string name="pick_quantity">Pick Quantity</string>

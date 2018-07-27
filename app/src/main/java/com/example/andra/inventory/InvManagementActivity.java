@@ -32,6 +32,13 @@ public class InvManagementActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inv_management);
 
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
+                Log.e("Alert",paramThrowable.getMessage());
+            }
+        });
+
         Button button = (Button) findViewById(R.id.new_book);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

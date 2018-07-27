@@ -60,8 +60,16 @@ public class InvCursorAdapter extends CursorAdapter {
         mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openDetail = new Intent(context, DetailActivity.class);
-               view.getContext().startActivity(openDetail);
+                try {
+                    Intent openDetail = new Intent(context, DetailActivity.class);
+                    openDetail.putExtra("id", id);
+                    Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
+                    openDetail.setData(currentBookUri);
+                    view.getContext().startActivity(openDetail);
+                }catch(Exception e){
+                    String s = e.getMessage();
+                }
+
                 ContentValues values = new ContentValues();
                 try {
                     String bookQuantity = quantityTextView.getText().toString().trim();

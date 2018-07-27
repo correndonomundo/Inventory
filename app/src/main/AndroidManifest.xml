@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andra.inventory">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,10 +27,19 @@
                 android:value=".InvManagementActivity" />
         </activity>
 
-    <provider
-    android:name=".data.BookProvider"
-    android:authorities="com.example.andra.inventory"
-    android:exported="false"/>
+        <activity
+            android:name=".DetailActivity"
+            android:parentActivityName=".InvManagementActivity"
+            android:theme="@style/EditorTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".InvManagementActivity" />
+        </activity>
+
+        <provider
+            android:name=".data.BookProvider"
+            android:authorities="com.example.andra.inventory"
+            android:exported="false" />
 
     </application>
 
